@@ -12,7 +12,7 @@ namespace WebStore
         private readonly IConfiguration _Configuration;
         public Startup(IConfiguration Configuration)
         {
-
+            _Configuration = Configuration;
         }
         public void ConfigureServices(IServiceCollection services)
         {
@@ -30,7 +30,7 @@ namespace WebStore
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync(_Configuration["greetings"]);
                 });
             });
         }
