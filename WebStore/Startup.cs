@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Services;
 
 namespace WebStore
 {
@@ -16,7 +17,8 @@ namespace WebStore
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddSingleton<DbInMemory>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -31,7 +33,7 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("greetings", async ctx => await ctx.Response.WriteAsync(_Configuration["greetings"]));
+                endpoints.MapGet("/greetings", async ctx => await ctx.Response.WriteAsync(_Configuration["greetings"]));
 
                 endpoints.MapControllerRoute(
                     name: "default",
