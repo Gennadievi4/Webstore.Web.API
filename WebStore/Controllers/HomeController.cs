@@ -28,5 +28,14 @@ namespace WebStore.Controllers
             var employees = _Db.Where(x => x.Id == Id).Single();
             return View(employees);
         }
+
+        public IActionResult Blogs() => View();
+        public IActionResult BlogSingle() => View();
+        public IActionResult Cart() => View();
+        public IActionResult CheckOut() => View();
+        public IActionResult ContactUs() => View();
+        public IActionResult Login() => View();
+        public IActionResult ProductDetails() => View();
+        public IActionResult Shop() => View();
     }
 }
