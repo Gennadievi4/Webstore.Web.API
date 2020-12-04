@@ -1,0 +1,29 @@
+﻿@model WebStore.Models.Employee
+
+<!DOCTYPE html>
+
+<<html style="height:100%">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Картокач сотрудника!</title>
+</head>
+<body style="display:flex; flex-direction:column; box-sizing:border-box; height:100%; margin:0">
+    <div>
+        <h1 align="center">Карточка сотрудника</h1>
+    </div>
+    <div style="width:auto; text-align:center; display:block; flex-grow:1">
+        <div style="display:inline-block; padding:0 10px 0 0">
+            <a href="~/Home/Index">Главная</a>
+        </div>
+        <div style="display: inline-block; text-align: center;">
+            <a href="~/Home/Employees">Сотрудники</a>
+        </div>
+    </div>
+    <div style="width:auto; text-align:center; display:block; flex-grow:1">
+        <p>@Model.LastName @Model.FirstName @Model.Patronymic @Model.Age</p>
+    </div>
+    <div style="display:block; text-align:center; height:auto;">
+        <p>&copy;@DateTime.Now.DayOfYear</p>
+    </div>
+</body>
+</html>
