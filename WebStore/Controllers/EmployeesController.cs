@@ -10,8 +10,14 @@ namespace WebStore.Controllers
     {
 
         private readonly List<Employee> _Db;
-        public EmployeesController(DbInMemory db) => _Db = db._Employees;
-        public IActionResult Index() => View(_Db);
+        public EmployeesController(DbInMemory db)
+        {
+            _Db = db._Employees;
+        }
+        public IActionResult Index()
+        {
+            return View(_Db);
+        }
         public IActionResult Details(int id)
         {
             var employee = _Db.FirstOrDefault(x => x.Id == id);
