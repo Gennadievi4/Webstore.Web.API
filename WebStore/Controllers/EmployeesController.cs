@@ -1,29 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using WebStore.Models;
-using WebStore.Services;
+using WebStore.Infrastructure.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
+    //[Route("Users")]
     public class EmployeesController : Controller
     {
-
-        private readonly List<Employee> _Db;
-        public EmployeesController(DbInMemory db)
+        private readonly IEmployeesData _Employees;
+        public EmployeesController(IEmployeesData employees)
         {
-            _Db = db._Employees;
+            _Employees = employees;
         }
+
+        //[Route("All")]
         public IActionResult Index()
         {
-            return View(_Db);
+            var employees = _Employees.Get();
+            return View(employees);
         }
+
+        //[Route("id-{id}")]
         public IActionResult Details(int id)
         {
-            var employee = _Db.FirstOrDefault(x => x.Id == id);
+            var employee = _Employees.Get(id);
             if (employee is not null)
                 return View(employee);
+
             return NotFound();
+        }
+
+        public IActionResult Edit(int id)
+        {
+            if (id < 0)
+                return BadRequest();
+
+            var emp = _Employees.Get(id);
+            if (emp is null)
+                return NotFound();
+
+            return View(new EmployeesViewModel
+            {
+                Id = emp.Id,
+                LastName = emp.LastName,
+                FirstName = emp.FirstName,
+                Patronymic = emp.Patronymic,
+                Age = emp.Age,
+            });
         }
     }
 }
