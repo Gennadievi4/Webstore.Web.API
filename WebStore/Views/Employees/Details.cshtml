@@ -1,7 +1,5 @@
 ﻿@model Employee
 
-<!DOCTYPE html>
-
 <div class="container">
     <h3>Сотрудник</h3>
 
@@ -24,5 +22,11 @@
 
     <hr />
 
-    <a asp-action="Index" class="btn btn-default">К списку.</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">
+        <i class="fa fa-edit">Редактировать</i>
+    </a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+        <i class="fa fa-trash-o">Удалить</i>
+    </a>
+    <a asp-action="Index" class="btn btn-success">К списку.</a>
 </div>

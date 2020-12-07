@@ -25,13 +25,14 @@ namespace WebStore
                 })
                 .AddRazorRuntimeCompilation();
 
-            services.AddTransient<IEmployeesData, DbInMemory>();
+            services.AddSingleton<IEmployeesData, DbInMemory>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             app.UseStaticFiles();

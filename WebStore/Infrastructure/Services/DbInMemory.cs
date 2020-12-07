@@ -8,7 +8,7 @@ namespace WebStore.Infrastructure.Services
 {
     public class DbInMemory : IEmployeesData
     {
-        public readonly List<Employee> _Employees = new()
+        public List<Employee> _Employees = new()
         {
             new Employee { Id = 1, LastName = "Иванов", FirstName = "Иван", Patronymic = "Иванович", Age = 1 },
             new Employee { Id = 2, LastName = "Петров", FirstName = "Пётр", Patronymic = "Петрович", Age = 3 },
@@ -27,6 +27,8 @@ namespace WebStore.Infrastructure.Services
                 .Select(item => item.Id)
                 .DefaultIfEmpty()
                 .Max() + 1;
+
+            _Employees.Add(emp);
 
             return emp.Id;
         }
