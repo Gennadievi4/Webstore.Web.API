@@ -1,24 +1,23 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    Layout = "_Layout";
+}
 
-<html style="height:100%">
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Главная страница Магазина!</title>
-</head>
-<body style="display:flex; flex-direction:column; box-sizing:border-box; height:100%; margin:0">
-    <div>
-        <h1 align="center">Шапка главной страницы магазина</h1>
-    </div>
-    <div style="width:auto; text-align:center; display:block; flex-grow:1">
-        <div style="display:inline-block; padding:0 10px 0 0">
-            <a href="#">Главная</a>
+<partial name="Partial/_Slider" />
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSideBar" />
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <partial name="Partial/_Features_Items" />
+
+                <partial name="Partial/_CategoryTab" />
+
+                <partial name="Partial/_RecommendedItems" />
+            </div>
         </div>
-        <div style="display: inline-block; text-align: center;">
-            <a href="~/Home/Employees">Сотрудники</a>
-        </div>
     </div>
-    <div style="display:block; text-align:center; height:auto;">
-        <p>&copy;@DateTime.Now.DayOfYear</p>
-    </div>
-</body>
-</html>
+</section>

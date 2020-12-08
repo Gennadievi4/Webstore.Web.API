@@ -2,9 +2,9 @@
 
 namespace WebStore.Controllers
 {
-    public class HomeController : Controller
+    public class ProductDetailsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult ProductDetailsIndex()
         {
             return View();
         }

@@ -2,9 +2,9 @@
 
 namespace WebStore.Controllers
 {
-    public class HomeController : Controller
+    public class ContactUsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult ContactUsIndex()
         {
             return View();
         }

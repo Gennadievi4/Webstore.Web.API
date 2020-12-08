@@ -2,9 +2,9 @@
 
 namespace WebStore.Controllers
 {
-    public class HomeController : Controller
+    public class CheckOutController : Controller
     {
-        public IActionResult Index()
+        public IActionResult CheckOutIndex()
         {
             return View();
         }
