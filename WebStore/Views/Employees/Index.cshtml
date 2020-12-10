@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Employee>
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 
-<!DOCTYPE html>
+@{
+    ViewData["Title"] = $"Сотрудники";
+}
 
 <div class="container">
     <h3>Сотрудники</h3>
@@ -17,9 +19,8 @@
                 <th>Отчество</th>
                 <th>Возраст</th>
                 <th>Подробности</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Редактировать</th>
+                <th>Удалить</th>
             </tr>
         </thead>
         <tbody>
@@ -42,7 +43,7 @@
                         </a>
                     </td>
                     <td>
-                        <form asp-action="DeleteConfirmed" asp-route-id="@employee.Id">
+                        <form asp-action="Delete" asp-route-id="@employee.Id">
                             <button type="submit" class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i>
                             </button>
