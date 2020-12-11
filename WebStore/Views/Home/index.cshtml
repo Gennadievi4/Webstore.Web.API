@@ -1,4 +1,20 @@
-﻿@{ Layout = "_Layout"; }
+﻿@using WebStore.Infrastructure.Interfaces
+@inject IProductData ProductData
+@{ 
+    var products = ProductData
+        .GetProducts()
+        .OrderBy(x => x.Order)
+        .Take(6)
+        .Select(x => new ProductViewModel
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Price = x.Price,
+            ImageUrl = x.ImageUrl,
+        });
+}
+
+@{ Layout = "_Layout"; }
 
 @{
     ViewData["Title"] = $"Магазин товаров";
@@ -14,7 +30,7 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                <partial name="Partial/_Features_Items" />
+                <partial name="Partial/_FeaturesItems"  model="products"/>
 
                 <partial name="Partial/_CategoryTab" />
 
