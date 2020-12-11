@@ -7,7 +7,7 @@ namespace WebStore.Infrastructure.Services
     public class InMemoryProductData : IProductData
     {
         private readonly DbInMemory _Db;
-        public InMemoryProductData(DbInMemory db) => _Db = db;
+        public InMemoryProductData(IEmployeesData db) => _Db = (DbInMemory)db;
         public IEnumerable<Brand> GetBrands() => _Db.Brands;
         public IEnumerable<Section> GetSections() => _Db.Sections;
     }

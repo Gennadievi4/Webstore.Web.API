@@ -11,7 +11,7 @@ namespace WebStore.ViewModels
 
         /// <summary>Имя/// </summary>
         [Display(Name = "Имя")]
-        [Required(ErrorMessage = "Имя - обязательное поле для заполнения", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessage = "Имя - обязательное поле для заполнения")]
         [StringLength(30, MinimumLength = 1, ErrorMessage = "Длинна имени может быть от 1 до 30!")]
         [RegularExpression(@"([А-ЯЁ][а-яё]+)|([A-Z][a-z]+)", ErrorMessage = "Имя начинается с большой буквы!")]
         public string FirstName { get; set; }
