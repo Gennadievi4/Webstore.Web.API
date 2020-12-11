@@ -19,8 +19,8 @@ namespace WebStore.Infrastructure.Services
             if (Filter?.SectionId is { } section_id)
                 query = query.Where(product => product.SectionId == section_id);
 
-            if (Filter?.SectionId != null)
-                query = query.Where(product => product.SectionId == Filter.BrandId);
+            if (Filter?.BrandId != null)
+                query = query.Where(product => product.BrandId == Filter.BrandId);
 
             return query;
         }
