@@ -58,7 +58,7 @@ namespace WebStore
                 opt.ExpireTimeSpan = TimeSpan.FromDays(10);
 
                 opt.LoginPath = "/Account/Login";
-                opt.LogoutPath = "Account/Logout";
+                opt.LogoutPath = "/Account/Logout";
                 opt.AccessDeniedPath = "/Account/AccessDenied";
 
                 opt.SlidingExpiration = true;

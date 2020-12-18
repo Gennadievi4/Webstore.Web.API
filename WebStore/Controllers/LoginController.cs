@@ -40,7 +40,10 @@ namespace WebStore.Controllers
                 ModelState.AddModelError("", error.Description);
 
             return View(Model);
-
         }
+
+        public IActionResult LogIn() => RedirectToAction("Index", "Home");
+
+        public IActionResult LogOut() => RedirectToAction("Index", "Home");
     }
 }
