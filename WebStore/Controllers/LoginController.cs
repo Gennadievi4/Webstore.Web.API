@@ -43,7 +43,8 @@ namespace WebStore.Controllers
         }
 
         public IActionResult LogIn(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
-
+        
+        [HttpPost]
         public async Task<IActionResult> LogIn(LoginViewModel Model)
         {
             if (!ModelState.IsValid) return View(Model);
