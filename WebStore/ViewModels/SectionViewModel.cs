@@ -11,5 +11,7 @@ namespace WebStore.ViewModels
 
         public List<SectionViewModel> ChildItems { get; set; } = new();
         public SectionViewModel ParentSection { get; set; }
+
+        public int ProductCount { get; set; }
     }
 }

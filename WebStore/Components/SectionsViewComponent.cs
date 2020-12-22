@@ -22,6 +22,7 @@ namespace WebStore.Components
                     Id = x.Id,
                     Name = x.Name,
                     Order = x.Order,
+                    ProductCount = x.Products.Count(),
                 })
                 .ToList();
 
@@ -37,6 +38,7 @@ namespace WebStore.Components
                         Name = child_section.Name,
                         Order = child_section.Order,
                         ParentSection = parent_section,
+                        ProductCount = child_section.Products.Count(),
                     });
                 }
 

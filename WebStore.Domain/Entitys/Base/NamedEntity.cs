@@ -4,6 +4,7 @@ namespace WebStore.Domain.Entitys.Base
 {
     public abstract class NamedEntity : Entity, INamedEntity
     {
+        //[Required]
         public string Name { get; set; }
     }
 }
