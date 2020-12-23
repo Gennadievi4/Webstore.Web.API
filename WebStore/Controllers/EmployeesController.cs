@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
@@ -7,6 +8,7 @@ using WebStore.ViewModels;
 namespace WebStore.Controllers
 {
     //[Route("Users")]
+    [Authorize]
     public class EmployeesController : Controller
     {
         private IEmployeesData _Employees;

@@ -57,9 +57,9 @@ namespace WebStore
                 opt.Cookie.HttpOnly = true;
                 opt.ExpireTimeSpan = TimeSpan.FromDays(10);
 
-                opt.LoginPath = "/Account/Login";
-                opt.LogoutPath = "/Account/Logout";
-                opt.AccessDeniedPath = "/Account/AccessDenied";
+                opt.LoginPath = "/Login/SignInUser";
+                opt.LogoutPath = "/Login/SignOutUser";
+                opt.AccessDeniedPath = "/Login/AccessDenied";
 
                 opt.SlidingExpiration = true;
             });

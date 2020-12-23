@@ -32,6 +32,8 @@ namespace WebStore.Controllers
             var registration_result = await _UserManager.CreateAsync(user, Model.Password);
             if (registration_result.Succeeded)
             {
+                await _UserManager.AddToRoleAsync(user, Role.User);
+
                 await _SignInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Home");
             }
@@ -42,10 +44,13 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
-        public IActionResult LogIn(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
-        
+        public IActionResult SignInUser(string ReturnUrl)
+        {
+            return View(new LoginViewModel { ReturnUrl = ReturnUrl });
+        }
+
         [HttpPost]
-        public async Task<IActionResult> LogIn(LoginViewModel Model)
+        public async Task<IActionResult> SignInUser(LoginViewModel Model)
         {
             if (!ModelState.IsValid) return View(Model);
 
@@ -72,7 +77,7 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> SignOutUser()
         {
             await _SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
