@@ -11,7 +11,7 @@
                         @Model.Name
                     </a>
                 </p>
-                <a href="#" class="btn btn-default add-to-cart">
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-Id="@Model.Id" class="btn btn-default add-to-cart">
                     <i class="fa fa-shopping-cart"></i>Добавить в корзину
                 </a>
             </div>
@@ -23,7 +23,9 @@
                             @Model.Name
                         </a>
                     </p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id" class="btn btn-default add-to-cart">
+                        <i class="fa fa-shopping-cart"></i>
+                    Добавить в корзину</a>
                 </div>
             </div>
         </div>

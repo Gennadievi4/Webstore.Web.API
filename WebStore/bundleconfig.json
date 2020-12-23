@@ -11,10 +11,10 @@
   {
     "outputFileName": "wwwroot/js/site.js",
     "inputFiles": [
+      "wwwroot/js/main.js",
       "wwwroot/js/contact.js",
       "wwwroot/js/gmap.js",
-      "wwwroot/js/price-range.js",
-      "wwwroot/js/main.js"
+      "wwwroot/js/price-range.js"
     ],
     "minify": {
       "enabled": true,
