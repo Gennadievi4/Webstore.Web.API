@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebStore.Domain.Identity;
@@ -6,6 +7,7 @@ using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class Login : Controller
     {
         private readonly UserManager<User> _UserManager;
@@ -16,9 +18,11 @@ namespace WebStore.Controllers
             _SignInManager = SignInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterViewModel());
 
         [HttpPost, ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel Model)
         {
             if (!ModelState.IsValid)
@@ -44,11 +48,13 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
+        [AllowAnonymous]
         public IActionResult SignInUser(string ReturnUrl)
         {
             return View(new LoginViewModel { ReturnUrl = ReturnUrl });
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> SignInUser(LoginViewModel Model)
         {
@@ -83,6 +89,7 @@ namespace WebStore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public IActionResult AccesDenied() => View();
     }
 }
