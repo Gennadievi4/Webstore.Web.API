@@ -36,5 +36,11 @@ namespace WebStore.Controllers
             _CartServices.Clear();
             return RedirectToAction(nameof(CartIndex));
         }
+
+        public IActionResult OrderConfirmed(int id)
+        {
+            ViewBag.OrderId = id;
+            return View();
+        }
     }
 }
