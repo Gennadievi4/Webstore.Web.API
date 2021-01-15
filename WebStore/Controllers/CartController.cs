@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
@@ -11,7 +13,12 @@ namespace WebStore.Controllers
         {
             _CartServices = CartServices;
         }
-        public IActionResult CartIndex() => View(_CartServices.TransformFromCart());
+
+        [AllowAnonymous]
+        public IActionResult CartIndex() => View(new CartOrderViewModel 
+        { 
+            Cart = _CartServices.TransformFromCart()
+        });
 
         public IActionResult AddToCart(int Id)
         {

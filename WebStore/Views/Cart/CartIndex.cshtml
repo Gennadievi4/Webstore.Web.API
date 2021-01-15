@@ -1,4 +1,4 @@
-﻿@model CartViewModel
+﻿@model CartOrderViewModel
 @{ 
     ViewData["Title"] = "Корзина";
 }
@@ -6,12 +6,12 @@
 
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
+        @*<div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li class="active">Shopping Cart</li>
             </ol>
-        </div>
+        </div>*@
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -21,11 +21,11 @@
                         <td class="price">Цена</td>
                         <td class="quantity">Количество</td>
                         <td class="total">Суммарная стоимость</td>
-                        <td></td>
+                        <td class="description">Удалить из корзины</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var (product, quatity) in Model.Items)
+                    @foreach (var (product, quatity) in Model.Cart.Items)
                     {
                         <tr>
                             <td class="cart_product">
@@ -48,8 +48,8 @@
                             <td class="cart_total">
                                 <p class="cart_total_price">@((product.Price * quatity).ToString("C"))</p>
                             </td>
-                            <td class="cart_delete">
-                                <a asp-action="RemoveFromCart" asp-controller="Cart" asp-route-Id="@product.Id" class="cart_quantity_delete"><i class="fa fa-times"></i></a>
+                            <td class="cart_delete" align="center">
+                                <a asp-action="RemoveFromCart" asp-controller="Cart" asp-route-Id="@product.Id" class="cart_quantity_delete"><i class="fa fa-times btn-group-lg"></i></a>
                             </td>
                         </tr>
                     }
@@ -126,7 +126,7 @@
                         <li>Cart Sub Total <span>$59</span></li>
                         <li>Eco Tax <span>$2</span></li>
                         <li>Shipping Cost <span>Free</span></li>
-                        <li>Total <span>@Model.TotalPrice</span></li>
+                        <li>Total <span>@Model.Cart.TotalPrice</span></li>
                     </ul>
                     <a class="btn btn-default update" href="">Update</a>
                     <a class="btn btn-default check_out" href="">Check Out</a>

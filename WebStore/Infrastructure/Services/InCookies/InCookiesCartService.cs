@@ -13,14 +13,14 @@ namespace WebStore.Infrastructure.Services.InCookies
     {
         private readonly IProductData _ProductData;
         private readonly IHttpContextAccessor _HttpContextAccessor;
-        private string _CartName;
+        private readonly string _CartName;
 
         private Cart Cart
         {
             get
             {
                 var context = _HttpContextAccessor.HttpContext;
-                var cookies = context.Response.Cookies;
+                var cookies = context!.Response.Cookies;
                 var cart_cookie = context.Request.Cookies[_CartName];
                 if(cart_cookie is null)
                 {
@@ -29,10 +29,10 @@ namespace WebStore.Infrastructure.Services.InCookies
                     return cart;
                 }
 
-                ReplaceCookies(cookies, cart_cookie);
+                //ReplaceCookies(cookies, cart_cookie);
                 return JsonConvert.DeserializeObject<Cart>(cart_cookie);
             }
-            set => ReplaceCookies(_HttpContextAccessor.HttpContext.Response.Cookies, JsonConvert.SerializeObject(value));
+            set => ReplaceCookies(_HttpContextAccessor.HttpContext!.Response.Cookies, JsonConvert.SerializeObject(value));
         }
 
         private void ReplaceCookies(IResponseCookies cookies, string cookie)
