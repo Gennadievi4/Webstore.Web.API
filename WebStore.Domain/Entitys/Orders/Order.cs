@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebStore.Domain.Entitys.Base;
 using WebStore.Domain.Identity;
@@ -17,5 +18,7 @@ namespace WebStore.Domain.Entitys.Orders
         public string Adress { get; set; }
 
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        public DateTime Date { get; set; }
     }
 }

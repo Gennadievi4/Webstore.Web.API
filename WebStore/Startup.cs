@@ -74,6 +74,7 @@ namespace WebStore
             services.AddSingleton<IEmployeesData, DbInMemory>();
             services.AddTransient<IProductData, SqlProductData>();
             services.AddScoped<ICartServices, InCookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
         {
