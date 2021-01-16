@@ -74,6 +74,7 @@ namespace WebStore
             services.AddSingleton<IEmployeesData, DbInMemory>();
             services.AddTransient<IProductData, SqlProductData>();
             services.AddScoped<ICartServices, InCookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
         {
@@ -97,6 +98,11 @@ namespace WebStore
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/greetings", async ctx => await ctx.Response.WriteAsync(_Configuration["greetings"]));
+
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
 
                 endpoints.MapControllerRoute(
                     name: "default",
