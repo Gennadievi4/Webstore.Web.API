@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebStore.Domain;
 using WebStore.Domain.Entitys;
@@ -7,6 +8,7 @@ using WebStore.Infrastructure.Services.InMemory;
 
 namespace WebStore.Infrastructure.Services
 {
+    [Obsolete("Класс устарел, так как с самого начала использовался в учебных целях. Используйте класс SqlProductData", true)]
     public class InMemoryProductData : IProductData
     {
         private readonly DbInMemory _Db;
@@ -25,5 +27,11 @@ namespace WebStore.Infrastructure.Services
 
             return query;
         }
+
+        public Section GetSectionById(int Id) => throw new NotSupportedException();
+
+        public Product GetProductById(int Id) => throw new NotSupportedException();
+
+        public Brand GetBrandById(int Id) => throw new NotSupportedException();
     }
 }

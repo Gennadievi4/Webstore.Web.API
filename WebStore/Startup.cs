@@ -12,6 +12,7 @@ using WebStore.Data;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
+using WebStore.Infrastructure.Services.InCookies;
 using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Services.InSQL;
 
@@ -57,9 +58,9 @@ namespace WebStore
                 opt.Cookie.HttpOnly = true;
                 opt.ExpireTimeSpan = TimeSpan.FromDays(10);
 
-                opt.LoginPath = "/Account/Login";
-                opt.LogoutPath = "/Account/Logout";
-                opt.AccessDeniedPath = "/Account/AccessDenied";
+                opt.LoginPath = "/Login/SignInUser";
+                opt.LogoutPath = "/Login/SignOutUser";
+                opt.AccessDeniedPath = "/Login/AccessDenied";
 
                 opt.SlidingExpiration = true;
             });
@@ -72,6 +73,7 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, DbInMemory>();
             services.AddTransient<IProductData, SqlProductData>();
+            services.AddScoped<ICartServices, InCookiesCartService>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebStore.Domain.Identity;
@@ -6,6 +7,7 @@ using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class Login : Controller
     {
         private readonly UserManager<User> _UserManager;
@@ -16,9 +18,11 @@ namespace WebStore.Controllers
             _SignInManager = SignInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterViewModel());
 
         [HttpPost, ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel Model)
         {
             if (!ModelState.IsValid)
@@ -32,6 +36,8 @@ namespace WebStore.Controllers
             var registration_result = await _UserManager.CreateAsync(user, Model.Password);
             if (registration_result.Succeeded)
             {
+                await _UserManager.AddToRoleAsync(user, Role.User);
+
                 await _SignInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Home");
             }
@@ -42,9 +48,15 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
-        public IActionResult LogIn(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
+        [AllowAnonymous]
+        public IActionResult SignInUser(string ReturnUrl)
+        {
+            return View(new LoginViewModel { ReturnUrl = ReturnUrl });
+        }
 
-        public async Task<IActionResult> LogIn(LoginViewModel Model)
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> SignInUser(LoginViewModel Model)
         {
             if (!ModelState.IsValid) return View(Model);
 
@@ -71,12 +83,13 @@ namespace WebStore.Controllers
             return View(Model);
         }
 
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> SignOutUser()
         {
             await _SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public IActionResult AccesDenied() => View();
     }
 }
