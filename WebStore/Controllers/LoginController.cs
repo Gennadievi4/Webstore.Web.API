@@ -1,12 +1,82 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WebStore.Domain.Identity;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
-    public class LoginController : Controller
+    public class Login : Controller
     {
-        public IActionResult LoginIndex()
+        private readonly UserManager<User> _UserManager;
+        private readonly SignInManager<User> _SignInManager;
+        public Login(UserManager<User> UserManager, SignInManager<User> SignInManager)
         {
-            return View();
+            _UserManager = UserManager;
+            _SignInManager = SignInManager;
         }
+
+        public IActionResult Register() => View(new RegisterViewModel());
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel Model)
+        {
+            if (!ModelState.IsValid)
+                return View(Model);
+
+            var user = new User
+            {
+                UserName = Model.UserName,
+            };
+
+            var registration_result = await _UserManager.CreateAsync(user, Model.Password);
+            if (registration_result.Succeeded)
+            {
+                await _SignInManager.SignInAsync(user, false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in registration_result.Errors)
+                ModelState.AddModelError("", error.Description);
+
+            return View(Model);
+        }
+
+        public IActionResult LogIn(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
+
+        public async Task<IActionResult> LogIn(LoginViewModel Model)
+        {
+            if (!ModelState.IsValid) return View(Model);
+
+            var login_result = await _SignInManager.PasswordSignInAsync(
+                Model.UserName,
+                Model.Password,
+                Model.RememberMe,
+#if DEBUG
+                false
+#else
+                true
+#endif
+                );
+
+            if (login_result.Succeeded)
+            {
+                if (Url.IsLocalUrl(Model.ReturnUrl))
+                    return Redirect(Model.ReturnUrl);
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Неверное имя пользователя, или пароль!");
+
+            return View(Model);
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccesDenied() => View();
     }
 }
