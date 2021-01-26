@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebStore.ServiceHosting.Controller
 {
@@ -22,24 +20,48 @@ namespace WebStore.ServiceHosting.Controller
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<string> Get(int id)
         {
-            return "value";
+            if (id < 0)
+                return BadRequest();
+            if (id >= __Values.Count)
+                return NotFound();
+            return __Values[id];
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("add")]
+        public ActionResult Post([FromBody] string value)
         {
+            __Values.Add(value);
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("edit/{id}")]
+        public ActionResult Put(int id, [FromBody] string value)
         {
+            if (id < 0)
+                return BadRequest();
+            if (id >= __Values.Count)
+                return NotFound();
+
+            __Values[id] = value;
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
+            if (id < 0)
+                return BadRequest();
+            if (id >= __Values.Count)
+                return NotFound();
+
+            __Values.RemoveAt(id);
+
+            return Ok();
         }
     }
 }
