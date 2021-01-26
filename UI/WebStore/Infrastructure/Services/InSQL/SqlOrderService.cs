@@ -8,7 +8,7 @@ using WebStore.DAL.Context;
 using WebStore.Domain.Entitys.Orders;
 using WebStore.Domain.Identity;
 using WebStore.Domain.ViewModels;
-using WebStore.Infrastructure.Interfaces;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Infrastructure.Services.InSQL
 {

@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
-using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Services.InMemory;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Data
 {
