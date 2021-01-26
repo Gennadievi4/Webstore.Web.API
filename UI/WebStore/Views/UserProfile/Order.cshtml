@@ -17,14 +17,14 @@
     </thead>
     <tbody>
         @{var i = 1; }
-        @foreach (var (_, name, phone, adress, total_sum) in Model)
+        @foreach (var order in Model)
         {
             <tr>
                 <td>@(i++)</td>
-                <td>@name</td>
-                <td>@adress</td>
-                <td>@phone</td>
-                <td>@total_sum</td>
+                <td>@order.Name</td>
+                <td>@order.Adress</td>
+                <td>@order.Phone</td>
+                <td>@order.TotalSum</td>
             </tr>
         }
     </tbody>

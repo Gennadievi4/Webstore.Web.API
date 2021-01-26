@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System.Linq;
 using WebStore.Domain;
 using WebStore.Domain.Entitys;
+using WebStore.Domain.ViewModels;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Mapping;
-using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Services.InCookies
 {

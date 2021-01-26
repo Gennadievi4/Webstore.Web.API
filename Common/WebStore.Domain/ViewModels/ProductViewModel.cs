@@ -1,6 +1,6 @@
 ﻿using WebStore.Domain.Entitys.Base.Interfaces;
 
-namespace WebStore.ViewModels
+namespace WebStore.Domain.ViewModels
 {
     public class ProductViewModel : INamedEntity
     {

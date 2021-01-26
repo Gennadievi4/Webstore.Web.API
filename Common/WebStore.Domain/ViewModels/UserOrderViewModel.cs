@@ -1,17 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebStore.ViewModels
+namespace WebStore.Domain.ViewModels
 {
-    public class OrderViewModel
+    public class UserOrderViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
         [Required]
-        [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
         [Required]
-        public string Address { get; set; }
+        public string Adress { get; set; }
+
+        public decimal TotalSum { get; set; }
     }
 }
