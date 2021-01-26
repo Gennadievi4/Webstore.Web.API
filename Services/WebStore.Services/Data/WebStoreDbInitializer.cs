@@ -6,10 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
-using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Products.InMemory;
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public class WebStoreDbInitializer
     {
@@ -23,7 +23,7 @@ namespace WebStore.Data
             WebStoreDB db,
             UserManager<User> UserManager,
             RoleManager<Role> RoleManager,
-            ILogger<WebStoreDbInitializer> logger, 
+            ILogger<WebStoreDbInitializer> logger,
             IEmployeesData employeesData)
         {
             _db = db;
@@ -53,7 +53,7 @@ namespace WebStore.Data
             {
                 InitializeProducts();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogInformation(ex, "Ошибка при инициализации БД данными товаров");
                 throw;
@@ -63,7 +63,7 @@ namespace WebStore.Data
             {
                 InitizializeIdentityAsync().Wait();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogInformation(ex, "Ошибка при инициализации БД системы Identity");
                 throw;
@@ -120,7 +120,7 @@ namespace WebStore.Data
             await CheckRole(Role.Administrator);
             await CheckRole(Role.User);
 
-            if(await _UserManager.FindByNameAsync(User.Administrator) is null)
+            if (await _UserManager.FindByNameAsync(User.Administrator) is null)
             {
                 var admin = new User
                 {

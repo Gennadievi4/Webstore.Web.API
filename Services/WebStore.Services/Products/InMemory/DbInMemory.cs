@@ -5,11 +5,11 @@ using WebStore.Domain.Entitys;
 using WebStore.Domain.Models;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Infrastructure.Services.InMemory
+namespace WebStore.Services.Products.InMemory
 {
     public class DbInMemory : IEmployeesData
     {
-        public List<Employee> _Employees = new()
+        public List<Employee> _Employees = new List<Employee>()
         {
             new Employee { Id = 1, LastName = "Иванов", FirstName = "Иван", Patronymic = "Иванович", Age = 1 },
             new Employee { Id = 2, LastName = "Петров", FirstName = "Пётр", Patronymic = "Петрович", Age = 3 },
