@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using WebStore.Domain.Models;
 using WebStore.Interfaces.Services;
@@ -10,16 +11,34 @@ namespace WebStore.ServiceHosting.Controller
     public class EmployeesApiController : ControllerBase, IEmployeesData
     {
         private readonly IEmployeesData _EmployeesData;
+        private readonly ILogger<EmployeesApiController> _Logger;
 
-        public EmployeesApiController(IEmployeesData EmployeesData)
+        public EmployeesApiController(IEmployeesData EmployeesData, ILogger<EmployeesApiController> Logger)
         {
             _EmployeesData = EmployeesData;
+            _Logger = Logger;
         }
 
         [HttpPost]
         public int Add(Employee emp)
         {
-            return _EmployeesData.Add(emp);
+            if (!ModelState.IsValid)
+            {
+                _Logger.LogInformation("Ошибка модели данных при добавлении нового сотрудника {0} {1} {2}", emp.LastName, emp.FirstName, emp.Patronymic);
+                return 0;
+            }
+
+            _Logger.LogInformation("Добавление сотрудника {0} {1} {2}", emp.LastName, emp.FirstName, emp.Patronymic);
+            var id = _EmployeesData.Add(emp);
+
+            if (id > 0)
+                _Logger.LogInformation("Сотрудник [id:{0}] {1} {2} {3} добавлен успешно",
+                    emp.Id, emp.LastName, emp.FirstName, emp.Patronymic);
+            else
+                _Logger.LogWarning("Ошибка при добавлении сотрудника {0} {1} {2}",
+                    emp.Id, emp.LastName, emp.FirstName, emp.Patronymic);
+
+            return id;
         }
 
         [HttpDelete("{id}")]
