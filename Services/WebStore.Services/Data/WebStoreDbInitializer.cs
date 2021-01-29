@@ -30,8 +30,6 @@ namespace WebStore.Services.Data
             _UserManager = UserManager;
             _RoleManager = RoleManager;
             _logger = logger;
-
-            _inMemoryDb = (DbInMemory)employeesData;
         }
 
         public void Initialize()

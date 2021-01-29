@@ -13,7 +13,7 @@ namespace WebStore.Clients
     {
         private readonly ILogger _Logger;
 
-        public EmployeesClient(IConfiguration Configuration, ILogger Logger) : base(Configuration, "api/employees")
+        public EmployeesClient(IConfiguration Configuration, ILogger<EmployeesClient> Logger) : base(Configuration, "api/employees")
         {
             _Logger = Logger;
         }

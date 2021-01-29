@@ -55,12 +55,24 @@ namespace WebStore.ServiceHosting
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             });
 
-            services.AddSingleton<IEmployeesData, DbInMemory>();
+            services.AddScoped<IEmployeesData, DbInMemory>();
             services
-                .AddTransient<IProductData, SqlProductData>()
+                .AddScoped<IProductData, SqlProductData>()
                 .AddScoped<ICartServices, InCookiesCartService>()
                 .AddScoped<IOrderService, SqlOrderService>();
 
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.Cookie.Name = "WebStore.GB";
+                opt.Cookie.HttpOnly = true;
+                opt.ExpireTimeSpan = TimeSpan.FromDays(10);
+
+                opt.LoginPath = "/Login/SignInUser";
+                opt.LogoutPath = "/Login/SignOutUser";
+                opt.AccessDeniedPath = "/Login/AccesDenied";
+
+                opt.SlidingExpiration = true;
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
