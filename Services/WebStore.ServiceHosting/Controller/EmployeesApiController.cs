@@ -44,6 +44,11 @@ namespace WebStore.ServiceHosting.Controller
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {
+            var result = _EmployeesData.Delete(id);
+            if (result)
+                _Logger.LogInformation("Сотрудник с id:{0} успешно удалён", id);
+            else
+                _Logger.LogWarning("Ошибка при попытке удаления сотрудника с id:{0}", id);
             return _EmployeesData.Delete(id);
         }
 

@@ -62,7 +62,7 @@ namespace WebStore
                 })
                 .AddRazorRuntimeCompilation();
 
-            services.AddScoped<IEmployeesData, DbInMemory>();
+            services.AddSingleton<IEmployeesData, EmployeesClient>();
             services
                 .AddScoped<IProductData, SqlProductData>()
                 .AddScoped<ICartServices, InCookiesCartService>()
