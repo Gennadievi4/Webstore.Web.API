@@ -13,7 +13,9 @@ namespace WebStore.Services.Mapping
                 Section.Id, 
                 Section.Name, 
                 Section.Order, 
-                Section.ParentId);
+                Section.ParentId,
+                Section.Products.Count()
+                );
 
         public static Section FromDTO(this SectionDTO SectionDTO) => SectionDTO is null
             ? null

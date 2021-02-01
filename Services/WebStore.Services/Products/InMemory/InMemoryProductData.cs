@@ -8,7 +8,7 @@ using WebStore.Interfaces.Services;
 namespace WebStore.Services.Products.InMemory
 {
     [Obsolete("Класс устарел, так как с самого начала использовался в учебных целях. Используйте класс SqlProductData", true)]
-    public class InMemoryProductData : IProductData
+    public class InMemoryProductData
     {
         private readonly DbInMemory _Db;
         public InMemoryProductData(IEmployeesData db) => _Db = (DbInMemory)db;

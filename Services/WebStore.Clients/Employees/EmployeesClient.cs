@@ -2,17 +2,18 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Net.Http;
-using WebStore.Clients.Values.Base;
+using WebStore.Clients.Base;
 using WebStore.Domain.Models;
+using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Clients
+namespace WebStore.Clients.Employees
 {
     public class EmployeesClient : BaseClient, IEmployeesData
     {
         private readonly ILogger _Logger;
 
-        public EmployeesClient(IConfiguration Configuration, ILogger<EmployeesClient> Logger) : base(Configuration, "api/employees")
+        public EmployeesClient(IConfiguration Configuration, ILogger<EmployeesClient> Logger) : base(Configuration, WebApi.Employees)
         {
             _Logger = Logger;
         }

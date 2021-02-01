@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace WebStore.Clients.Values.Base
+namespace WebStore.Clients.Base
 {
     public abstract class BaseClient
     {

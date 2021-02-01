@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using WebStore.Clients;
+using WebStore.Clients.Employees;
+using WebStore.Clients.Orders;
+using WebStore.Clients.Products;
 using WebStore.Clients.Values;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
@@ -84,9 +86,11 @@ namespace WebStore
             //services.AddSingleton<IEmployeesData, DbInMemory>();
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services
-                .AddTransient<IProductData, SqlProductData>()
+                //.AddTransient<IProductData, SqlProductData>()
+                .AddTransient<IProductData, ProductsClient>()
                 .AddScoped<ICartServices, InCookiesCartService>()
-                .AddScoped<IOrderService, SqlOrderService>();
+                //.AddScoped<IOrderService, SqlOrderService>();
+                .AddScoped<IOrderService, OrdersClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddControllersWithViews()

@@ -22,7 +22,7 @@ namespace WebStore.Controllers
             return View(orders.Select(order => new UserOrderViewModel
             {
                 Id = order.Id,
-                Name = order.Name,
+                Name = order.name,
                 Phone = order.Phone,
                 Adress = order.Adress,
                 TotalSum = order.Items.Sum(item => item.Price * item.Quantity)

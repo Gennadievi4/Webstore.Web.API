@@ -20,7 +20,7 @@ namespace WebStore.Components
                 {
                     Id = brand.id,
                     Name = brand.Name,
-                    ProductCount = brand.FromDTO().Products.Count(),
+                    ProductCount = brand.ProductCount
                 });
     }
 }
