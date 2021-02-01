@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Components
 {
@@ -17,9 +18,9 @@ namespace WebStore.Components
                 .OrderBy(brand => brand.Order)
                 .Select(brand => new BrandViewModel
                 {
-                    Id = brand.Id,
+                    Id = brand.id,
                     Name = brand.Name,
-                    ProductCount = brand.Products.Count(),
+                    ProductCount = brand.FromDTO().Products.Count(),
                 });
     }
 }

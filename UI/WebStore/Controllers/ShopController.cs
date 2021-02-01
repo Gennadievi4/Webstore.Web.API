@@ -29,6 +29,7 @@ namespace WebStore.Controllers
                 BrandId = BrandId,
                 Product = products
                     .OrderBy(p => p.Order)
+                    .FromDTO()
                     .ToView()
             });
         }
