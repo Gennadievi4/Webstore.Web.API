@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.DAL.Context;
 using WebStore.Domain;
+using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entitys;
 using WebStore.Interfaces.Services;
 
@@ -14,20 +15,20 @@ namespace WebStore.Services.Products.InSQL
         private readonly WebStoreDB _db;
         public SqlProductData(WebStoreDB dB) => _db = dB;
 
-        public Brand GetBrandById(int Id) => _db.Brands
+        public BrandDTO GetBrandById(int Id) => _db.Brands
             .Include(x => x.Products)
             .FirstOrDefault(x => x.Id == Id);
 
-        public IEnumerable<Brand> GetBrands() => _db.Brands.Include(x => x.Products);
+        public IEnumerable<BrandDTO> GetBrands() => _db.Brands.Include(x => x.Products);
 
-        public Product GetProductById(int Id) => _db.Products
+        public ProductDTO GetProductById(int Id) => _db.Products
             .Include(x => x.Brand)
             .Include(x => x.Section)
             .FirstOrDefault(x => x.Id == Id);
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null)
         {
-            IQueryable<Product> query = _db.Products
+            IQueryable<ProductDTO> query = _db.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Section);
 
@@ -47,10 +48,10 @@ namespace WebStore.Services.Products.InSQL
             return query;
         }
 
-        public Section GetSectionById(int Id) => _db.Sections
+        public SectionDTO GetSectionById(int Id) => _db.Sections
             .Include(section => section.Products)
             .FirstOrDefault(x => x.Id == Id);
 
-        public IEnumerable<Section> GetSections() => _db.Sections.Include(x => x.Products);
+        public IEnumerable<SectionDTO> GetSections() => _db.Sections.Include(x => x.Products);
     }
 }

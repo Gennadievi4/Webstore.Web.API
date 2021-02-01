@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WebStore.Clients;
 using WebStore.Clients.Values;
 using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
@@ -29,7 +30,8 @@ namespace WebStore
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(_Configuration.GetConnectionString("Default")));
+            services.AddDbContext<WebStoreDB>(opt =>
+                opt.UseSqlServer(_Configuration.GetConnectionString("Default")));
             services.AddTransient<WebStoreDbInitializer>();
 
             services.AddIdentity<User, Role>()
@@ -54,29 +56,37 @@ namespace WebStore
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             });
 
-            services.ConfigureApplicationCookie(opt =>
-            {
-                opt.Cookie.Name = "WebStore";
-                opt.Cookie.HttpOnly = true;
-                opt.ExpireTimeSpan = TimeSpan.FromDays(10);
-
-                opt.LoginPath = "/Login/SignInUser";
-                opt.LogoutPath = "/Login/SignOutUser";
-                opt.AccessDeniedPath = "/Login/AccessDenied";
-
-                opt.SlidingExpiration = true;
-            });
-
             services.AddMvc(opt =>
                 {
                     opt.Conventions.Add(new WebStoreControllerConvention());
                 })
                 .AddRazorRuntimeCompilation();
 
-            services.AddSingleton<IEmployeesData, DbInMemory>();
-            services.AddTransient<IProductData, SqlProductData>();
-            services.AddScoped<ICartServices, InCookiesCartService>();
-            services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddSingleton<IEmployeesData, EmployeesClient>();
+            services
+                .AddScoped<IProductData, SqlProductData>()
+                .AddScoped<ICartServices, InCookiesCartService>()
+                .AddScoped<IOrderService, SqlOrderService>();
+
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.Cookie.Name = "WebStore.GB";
+                opt.Cookie.HttpOnly = true;
+                opt.ExpireTimeSpan = TimeSpan.FromDays(10);
+
+                opt.LoginPath = "/Login/SignInUser";
+                opt.LogoutPath = "/Login/SignOutUser";
+                opt.AccessDeniedPath = "/Login/AccesDenied";
+
+                opt.SlidingExpiration = true;
+            });
+
+            //services.AddSingleton<IEmployeesData, DbInMemory>();
+            services.AddTransient<IEmployeesData, EmployeesClient>();
+            services
+                .AddTransient<IProductData, SqlProductData>()
+                .AddScoped<ICartServices, InCookiesCartService>()
+                .AddScoped<IOrderService, SqlOrderService>();
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddControllersWithViews()
