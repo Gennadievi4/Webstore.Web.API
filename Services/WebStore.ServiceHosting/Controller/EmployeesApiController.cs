@@ -45,6 +45,9 @@ namespace WebStore.ServiceHosting.Controller
             return id;
         }
 
+        /// <summary>Удаление сотрудника по его id</summary>
+        /// <param name="id">Идентификатор сотрудника</param>
+        /// <returns>Истина, если сотрудник был удалён</returns>
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {
