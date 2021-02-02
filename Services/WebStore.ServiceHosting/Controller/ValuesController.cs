@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using WebStore.Interfaces;
 
 namespace WebStore.ServiceHosting.Controller
 {
-    [Route("api/[controller]")]
+    [Route(WebApi.Values)]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -34,7 +35,8 @@ namespace WebStore.ServiceHosting.Controller
         public ActionResult Post([FromBody] string value)
         {
             __Values.Add(value);
-            return Ok();
+            var id = __Values.Count - 1;
+            return CreatedAtAction(nameof(Get), new { id });
         }
 
         [HttpPut("{id}")]

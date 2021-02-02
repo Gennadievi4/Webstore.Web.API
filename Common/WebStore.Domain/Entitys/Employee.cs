@@ -1,9 +1,10 @@
-﻿namespace WebStore.Domain.Models
+﻿using WebStore.Domain.Entitys.Base;
+
+namespace WebStore.Domain.Entitys
 {
     /// <summary>Сотрудник/// </summary>
-    public class Employee
+    public class Employee : Entity
     {
-        public int Id { get; set; }
         /// <summary>Имя/// </summary>
         public string FirstName { get; set; }
 

@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using WebStore.Domain.Entitys;
-using WebStore.Domain.Models;
-using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.Products.InMemory
 {
-    public class DbInMemory : IEmployeesData
+    public static class DbInMemory /*: IEmployeesData*/
     {
-        public List<Employee> _Employees = new List<Employee>()
+        public static List<Employee> _Employees = new List<Employee>()
         {
             new Employee { Id = 1, LastName = "Иванов", FirstName = "Иван", Patronymic = "Иванович", Age = 1 },
             new Employee { Id = 2, LastName = "Петров", FirstName = "Пётр", Patronymic = "Петрович", Age = 3 },
             new Employee { Id = 3, LastName = "Сидоров", FirstName = "Сидор", Patronymic = "Сидорович", Age = 2 }
         };
 
-        public IEnumerable<Section> Sections { get; } = new[]
+        public static IEnumerable<Section> Sections { get; } = new[]
         {
               new Section { Id = 1, Name = "Спорт", Order = 0 },
               new Section { Id = 2, Name = "Nike", Order = 0, ParentId = 1 },
@@ -50,7 +46,7 @@ namespace WebStore.Services.Products.InMemory
               new Section { Id = 30, Name = "Обувь", Order = 9 },
         };
 
-        public IEnumerable<Brand> Brands { get; } = new[]
+        public static IEnumerable<Brand> Brands { get; } = new[]
         {
             new Brand { Id = 1, Name = "Acne", Order = 0 },
             new Brand { Id = 2, Name = "Grune Erde", Order = 1 },
@@ -61,7 +57,7 @@ namespace WebStore.Services.Products.InMemory
             new Brand { Id = 7, Name = "Rosch creative culture", Order = 6 },
         };
 
-        public IEnumerable<Product> Products { get; } = new[]
+        public static IEnumerable<Product> Products { get; } = new[]
         {
             new Product { Id = 1, Name = "Белое платье", Price = 1025, ImageUrl = "product1.jpg", Order = 0, SectionId = 2, BrandId = 1 },
             new Product { Id = 2, Name = "Розовое платье", Price = 1025, ImageUrl = "product2.jpg", Order = 1, SectionId = 2, BrandId = 1 },
@@ -76,52 +72,5 @@ namespace WebStore.Services.Products.InMemory
             new Product { Id = 11, Name = "Джинсы женские", Price = 1025, ImageUrl = "product11.jpg", Order = 10, SectionId = 25, BrandId = 3 },
             new Product { Id = 12, Name = "Летний костюм", Price = 1025, ImageUrl = "product12.jpg", Order = 11, SectionId = 25, BrandId = 3 },
         };
-
-        public int Add(Employee emp)
-        {
-            if (emp is null)
-                throw new ArgumentNullException(nameof(emp));
-
-            if (_Employees.Contains(emp))
-                return emp.Id;
-
-            emp.Id = _Employees
-                .Select(item => item.Id)
-                .DefaultIfEmpty()
-                .Max() + 1;
-
-            _Employees.Add(emp);
-
-            return emp.Id;
-        }
-
-        public bool Delete(int id)
-        {
-            var item = Get(id);
-            if (item is null) return false;
-            return _Employees.Remove(item);
-        }
-
-        public IEnumerable<Employee> Get() => _Employees;
-
-        public Employee Get(int id) => _Employees.FirstOrDefault(x => x.Id == id);
-
-        public void Update(Employee emp)
-        {
-            if (emp is null)
-                throw new ArgumentNullException(nameof(emp));
-
-            if (_Employees.Contains(emp))
-                return;
-
-            var db_item = Get(emp.Id);
-            if (db_item is null)
-                return;
-
-            db_item.LastName = emp.LastName;
-            db_item.FirstName = emp.FirstName;
-            db_item.Patronymic = emp.Patronymic;
-            db_item.Age = emp.Age;
-        }
     }
 }

@@ -18,7 +18,7 @@ namespace WebStore.Services.Data
         private RoleManager<Role> _RoleManager;
         private ILogger<WebStoreDbInitializer> _logger;
 
-        private DbInMemory _inMemoryDb;
+        //private DbInMemory _inMemoryDb;
         public WebStoreDbInitializer(
             WebStoreDB db,
             UserManager<User> UserManager,
@@ -75,7 +75,7 @@ namespace WebStore.Services.Data
 
             using (_db.Database.BeginTransaction())
             {
-                _db.Sections.AddRange(_inMemoryDb.Sections);
+                _db.Sections.AddRange(DbInMemory.Sections);
 
                 _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Sections] ON");
                 _db.SaveChanges();
@@ -86,7 +86,7 @@ namespace WebStore.Services.Data
 
             using (_db.Database.BeginTransaction())
             {
-                _db.Brands.AddRange(_inMemoryDb.Brands);
+                _db.Brands.AddRange(DbInMemory.Brands);
 
                 _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Brands] ON");
                 _db.SaveChanges();
@@ -97,7 +97,7 @@ namespace WebStore.Services.Data
 
             using (_db.Database.BeginTransaction())
             {
-                _db.Products.AddRange(_inMemoryDb.Products);
+                _db.Products.AddRange(DbInMemory.Products);
 
                 _db.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Products] ON");
                 _db.SaveChanges();

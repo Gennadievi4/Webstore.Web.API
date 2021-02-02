@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using WebStore.Clients.Values.Base;
+using WebStore.Clients.Base;
+using WebStore.Interfaces;
 using WebStore.Interfaces.TestApi;
 
 namespace WebStore.Clients.Values
 {
     public class ValuesClient : BaseClient, IValuesService
     {
-        public ValuesClient(IConfiguration Configuration) : base(Configuration, "api/values") { }
+        public ValuesClient(IConfiguration Configuration) : base(Configuration, WebApi.Values) { }
 
         public HttpStatusCode Delete(int id)
         {

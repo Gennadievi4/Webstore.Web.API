@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.Domain;
 using WebStore.Domain.Entitys;
-using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.Products.InMemory
 {
     [Obsolete("Класс устарел, так как с самого начала использовался в учебных целях. Используйте класс SqlProductData", true)]
-    public class InMemoryProductData : IProductData
+    public class InMemoryProductData
     {
-        private readonly DbInMemory _Db;
-        public InMemoryProductData(IEmployeesData db) => _Db = (DbInMemory)db;
-        public IEnumerable<Brand> GetBrands() => _Db.Brands;
-        public IEnumerable<Section> GetSections() => _Db.Sections;
+        public InMemoryProductData() { }
+        public IEnumerable<Brand> GetBrands() => DbInMemory.Brands;
+        public IEnumerable<Section> GetSections() => DbInMemory.Sections;
         public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
         {
-            var query = _Db.Products;
+            var query = DbInMemory.Products;
 
             if (Filter?.SectionId is { } section_id)
                 query = query.Where(product => product.SectionId == section_id);

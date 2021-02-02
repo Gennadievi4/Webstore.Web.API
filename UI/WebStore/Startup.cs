@@ -2,40 +2,29 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using WebStore.Clients;
+using WebStore.Clients.Employees;
+using WebStore.Clients.Identity;
+using WebStore.Clients.Orders;
+using WebStore.Clients.Products;
 using WebStore.Clients.Values;
-using WebStore.DAL.Context;
 using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestApi;
-using WebStore.Services.Data;
 using WebStore.Services.Products.InCookies;
-using WebStore.Services.Products.InMemory;
-using WebStore.Services.Products.InSQL;
 
 namespace WebStore
 {
     public class Startup
     {
-        private readonly IConfiguration _Configuration;
-        public Startup(IConfiguration Configuration)
-        {
-            _Configuration = Configuration;
-        }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreDB>(opt =>
-                opt.UseSqlServer(_Configuration.GetConnectionString("Default")));
-            services.AddTransient<WebStoreDbInitializer>();
-
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<WebStoreDB>()
+                .AddIdentityWebStoreWebAPIClients()
                 .AddDefaultTokenProviders();
 
 #if DEBUG
@@ -64,9 +53,9 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, EmployeesClient>();
             services
-                .AddScoped<IProductData, SqlProductData>()
+                .AddScoped<IProductData, ProductsClient>()
                 .AddScoped<ICartServices, InCookiesCartService>()
-                .AddScoped<IOrderService, SqlOrderService>();
+                .AddScoped<IOrderService, OrdersClient>();
 
             services.ConfigureApplicationCookie(opt =>
             {
@@ -81,21 +70,18 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddSingleton<IEmployeesData, DbInMemory>();
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services
-                .AddTransient<IProductData, SqlProductData>()
+                .AddTransient<IProductData, ProductsClient>()
                 .AddScoped<ICartServices, InCookiesCartService>()
-                .AddScoped<IOrderService, SqlOrderService>();
+                .AddScoped<IOrderService, OrdersClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
         }
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            db.Initialize();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -113,8 +99,6 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/greetings", async ctx => await ctx.Response.WriteAsync(_Configuration["greetings"]));
-
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
