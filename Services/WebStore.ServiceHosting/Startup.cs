@@ -55,7 +55,7 @@ namespace WebStore.ServiceHosting
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             });
 
-            services.AddSingleton<IEmployeesData, DbInMemory>();
+            services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
             services
                 .AddScoped<IProductData, SqlProductData>()
                 .AddScoped<ICartServices, InCookiesCartService>()

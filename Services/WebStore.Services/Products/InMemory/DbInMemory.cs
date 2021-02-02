@@ -73,52 +73,5 @@ namespace WebStore.Services.Products.InMemory
             new Product { Id = 11, Name = "Джинсы женские", Price = 1025, ImageUrl = "product11.jpg", Order = 10, SectionId = 25, BrandId = 3 },
             new Product { Id = 12, Name = "Летний костюм", Price = 1025, ImageUrl = "product12.jpg", Order = 11, SectionId = 25, BrandId = 3 },
         };
-
-        //public int Add(Employee emp)
-        //{
-        //    if (emp is null)
-        //        throw new ArgumentNullException(nameof(emp));
-
-        //    if (_Employees.Contains(emp))
-        //        return emp.Id;
-
-        //    emp.Id = _Employees
-        //        .Select(item => item.Id)
-        //        .DefaultIfEmpty()
-        //        .Max() + 1;
-
-        //    _Employees.Add(emp);
-
-        //    return emp.Id;
-        //}
-
-        //public bool Delete(int id)
-        //{
-        //    var item = Get(id);
-        //    if (item is null) return false;
-        //    return _Employees.Remove(item);
-        //}
-
-        //public IEnumerable<Employee> Get() => _Employees;
-
-        //public Employee Get(int id) => _Employees.FirstOrDefault(x => x.Id == id);
-
-        //public void Update(Employee emp)
-        //{
-        //    if (emp is null)
-        //        throw new ArgumentNullException(nameof(emp));
-
-        //    if (_Employees.Contains(emp))
-        //        return;
-
-        //    var db_item = Get(emp.Id);
-        //    if (db_item is null)
-        //        return;
-
-        //    db_item.LastName = emp.LastName;
-        //    db_item.FirstName = emp.FirstName;
-        //    db_item.Patronymic = emp.Patronymic;
-        //    db_item.Age = emp.Age;
-        //}
     }
 }
