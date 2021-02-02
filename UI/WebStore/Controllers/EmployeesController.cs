@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using WebStore.Domain.Entitys;
 using WebStore.Domain.Identity;
-using WebStore.Domain.Models;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
 
@@ -12,7 +12,7 @@ namespace WebStore.Controllers
     [Authorize]
     public class EmployeesController : Controller
     {
-        private IEmployeesData _Employees;
+        private readonly IEmployeesData _Employees;
         public EmployeesController(IEmployeesData employees)
         {
             _Employees = employees;

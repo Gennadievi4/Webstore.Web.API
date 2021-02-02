@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using WebStore.Domain.Models;
+using WebStore.Domain.Entitys;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.ServiceHosting.Controller
 {
+    /// API управления сотрудниками</summary>>
     [Route("api/employees")]
     [ApiController]
     public class EmployeesApiController : ControllerBase, IEmployeesData
@@ -19,6 +20,9 @@ namespace WebStore.ServiceHosting.Controller
             _Logger = Logger;
         }
 
+        /// <summary>Добавление нового сотрудника/</summary>
+        /// <param name="emp">Добавляемый сотрудник</param>
+        /// <returns>Идентификатор сотрудника</returns>
         [HttpPost]
         public int Add(Employee emp)
         {
@@ -52,18 +56,24 @@ namespace WebStore.ServiceHosting.Controller
             return _EmployeesData.Delete(id);
         }
 
+        /// <summary>Получение всех сотрудников</summary>>
+        /// <returns>Список всех сотрудников</returns>
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
             return _EmployeesData.Get();
         }
 
+        /// <summary>Получение сотрудника по индентификатору/</summary>
+        /// <param name="id">Идентификатор сотрудника</param>
         [HttpGet("{id}")]
         public Employee Get(int id)
         {
             return _EmployeesData.Get(id);
         }
 
+        /// <summary>/ Редактирование сотрудника/</summary>
+        /// <param name="emp">Информация для изменения данных сотрудника</param>
         [HttpPut]
         public void Update(Employee emp)
         {

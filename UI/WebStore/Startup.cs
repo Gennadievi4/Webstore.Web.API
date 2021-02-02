@@ -21,17 +21,8 @@ namespace WebStore
 {
     public class Startup
     {
-        private readonly IConfiguration _Configuration;
-        public Startup(IConfiguration Configuration)
-        {
-            _Configuration = Configuration;
-        }
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<WebStoreDB>(opt =>
-            //    opt.UseSqlServer(_Configuration.GetConnectionString("Default")));
-            //services.AddTransient<WebStoreDbInitializer>();
-
             services.AddIdentity<User, Role>()
                 .AddIdentityWebStoreWebAPIClients()
                 .AddDefaultTokenProviders();
@@ -79,23 +70,18 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddSingleton<IEmployeesData, DbInMemory>();
             services.AddTransient<IEmployeesData, EmployeesClient>();
             services
-                //.AddTransient<IProductData, SqlProductData>()
                 .AddTransient<IProductData, ProductsClient>()
                 .AddScoped<ICartServices, InCookiesCartService>()
-                //.AddScoped<IOrderService, SqlOrderService>();
                 .AddScoped<IOrderService, OrdersClient>();
             services.AddScoped<IValuesService, ValuesClient>();
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
         }
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, WebStoreDbInitializer db*/)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //db.Initialize();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -113,8 +99,6 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/greetings", async ctx => await ctx.Response.WriteAsync(_Configuration["greetings"]));
-
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
