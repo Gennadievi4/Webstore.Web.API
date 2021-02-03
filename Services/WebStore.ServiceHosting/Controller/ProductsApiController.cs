@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Products;
+using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.ServiceHosting.Controller
 {
-    [Route("api/products")]
+    [Route(WebApi.Products)]
     [ApiController]
     public class ProductsApiController : ControllerBase, IProductData
     {
