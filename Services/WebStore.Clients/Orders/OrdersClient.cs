@@ -12,7 +12,6 @@ namespace WebStore.Clients.Orders
 {
     public class OrdersClient : BaseClient, IOrderService
     {
-        private readonly IConfiguration _Configuration;
         private readonly ILogger<OrdersClient> _Logger;
 
         public OrdersClient(IConfiguration Configuration, ILogger<OrdersClient> Logger)
