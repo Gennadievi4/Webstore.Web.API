@@ -100,6 +100,8 @@ namespace WebStore
 
             app.UseWelcomePage("/Welcom");
 
+            app.UseMiddleware<ErrorHandling>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
