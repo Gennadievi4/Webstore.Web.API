@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using WebStoreLogger;
 
 namespace WebStore.ServiceHosting
 {
@@ -15,6 +16,7 @@ namespace WebStore.ServiceHosting
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureLogging(log => log.AddLog4Net());
     }
 }
