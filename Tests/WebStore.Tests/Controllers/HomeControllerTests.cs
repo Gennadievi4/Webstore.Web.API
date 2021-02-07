@@ -18,6 +18,8 @@ namespace WebStore.Tests.Controllers
             var result = controller.Index();
 
             //Assert.IsInstanceOfType(result, typeof(ViewResult)); - MSTest
+
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
