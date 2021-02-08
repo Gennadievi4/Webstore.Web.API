@@ -102,19 +102,16 @@ namespace WebStore.Services.Products.InCookies
             Cart = cart;
         }
 
-        public CartViewModel TransformFromCart()
-        {
-            var product = _ProductData.GetProducts(new ProductFilter
+        public CartViewModel TransformFromCart() =>
+            new()
             {
-                Ids = Cart.Items.Select(item => item.ProductId).ToArray()
-            });
-
-            var product_view_models = product.FromDTO().ToView().ToDictionary(x => x.Id);
-
-            return new CartViewModel
-            {
-                Items = Cart.Items.Select(x => (product_view_models[x.ProductId], x.Quantity))
+                Items = from item in Cart.Items
+                        join product in _ProductData.GetProducts(new ProductFilter
+                            {
+                                Ids = Cart.Items.Select(item => item.ProductId).ToArray()
+                            }).FromDTO().ToView()
+                            on item.ProductId equals product.Id
+                        select (product, item.Quantity)
             };
-        }
     }
 }
