@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace WebStore.TagHelpers
 {
-    [HtmlTargetElement(Attributes = "AttributeName")]
+    [HtmlTargetElement(Attributes = AttributeName)]
     public class ActiveRoute : TagHelper
     {
         private const string AttributeName = "ws-is-active-route";

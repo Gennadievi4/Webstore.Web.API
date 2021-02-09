@@ -1,25 +1,25 @@
 ﻿<ul class="nav navbar-nav collapse navbar-collapse">
-    <li><a is-active-route asp-controller="Home" asp-action="Index">Домой</a></li>
+    <li><a ws-is-active-route asp-controller="Home" asp-action="Index">Домой</a></li>
     <li class="dropdown">
-        <a ws-is-avtive-route ws-ignore-action asp-controller="Shop" asp-action="ShopIndex">Магазин<i class="fa fa-angle-down"></i></a>
+        <a ws-is-avtive-route asp-controller="Shop" asp-action="ShopIndex">Магазин<i class="fa fa-angle-down"></i></a>
         <ul role="menu" class="sub-menu">
             <li><a ws-is-avtive-route asp-controller="Shop" asp-action="ShopIndex">Каталог товаров</a></li>
             @*<li><a asp-controller="ProductDetails" asp-action="ProductDetailsIndex">Подробности товара</a></li>*@
-            <li><a asp-controller="CheckOut" asp-action="CheckOutIndex">Checkout</a></li>
-            <li><a asp-controller="Cart" asp-action="CartIndex">Корзина</a></li>
+            <li><a ws-is-active-route asp-controller="CheckOut" asp-action="CheckOutIndex">Checkout</a></li>
+            <li><a ws-is-active-route asp-controller="Cart" asp-action="CartIndex">Корзина</a></li>
             @*<li><a asp-controller="Login" asp-action="SignInUser">LogIn</a></li>*@
         </ul>
     </li>
     <li class="dropdown">
-        <a asp-controller="Blogs" asp-action="Index">Блоги<i class="fa fa-angle-down"></i></a>
+        <a ws-is-active-route asp-controller="Blogs" asp-action="Index">Блоги<i class="fa fa-angle-down"></i></a>
         <ul role="menu" class="sub-menu">
-            <li><a asp-controller="Blogs" asp-action="Index">Блоги покупателей</a></li>
-            <li><a asp-controller="Blogs" asp-action="BlogSingle">Блог магазина</a></li>
+            <li><a ws-is-active-route asp-controller="Blogs" asp-action="Index">Блоги покупателей</a></li>
+            <li><a ws-is-active-route asp-controller="Blogs" asp-action="BlogSingle">Блог магазина</a></li>
         </ul>
     </li>
-    <li><a is-active-route asp-controller="Home" asp-action="Index">404</a></li>
-    <li><a is-active-route asp-controller="Employees" asp-action="Index" class=@IsActive("Employees")>Сотрудники</a></li>
-    <li><a is-active-route asp-controller="ContactUs" asp-action="ContactUsIndex">Связь с нами!</a></li>
+    <li><a ws-is-active-route asp-controller="Home" asp-action="Error404">404</a></li>
+    <li><a asp-controller="Employees" asp-action="Index" class=@IsActive("Employees")>Сотрудники</a></li>
+    <li><a ws-is-active-route asp-controller="ContactUs" asp-action="ContactUsIndex">Связь с нами!</a></li>
     <li><a ws-is-active-route asp-controller="WebApi" asp-action="Index">WebApi</a></li>
 </ul>
 
