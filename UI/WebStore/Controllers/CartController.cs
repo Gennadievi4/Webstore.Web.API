@@ -83,5 +83,49 @@ namespace WebStore.Controllers
 
             return RedirectToAction("OrderConfirmed", new { order.Id });
         }
+
+
+        #region WebApi
+
+        public IActionResult GetCartView() => ViewComponent("Cart");
+
+        [AllowAnonymous]
+        public IActionResult CartIndexAPI() => View(new CartOrderViewModel
+        {
+            Cart = _CartServices.TransformFromCart()
+        });
+
+        [AllowAnonymous]
+        public IActionResult AddToCartAPI(int Id)
+        {
+            _CartServices.AddToCart(Id);
+            return Json(new { Id, message = $"Товар с id:{Id} был добавлен в корзину" });
+        }
+
+        public IActionResult RemoveFromCartAPI(int id)
+        {
+            _CartServices.RemoveFromCart(id);
+            return Ok();
+        }
+
+        public IActionResult DecrementFromCartAPI(int id)
+        {
+            _CartServices.DecrementFromCart(id);
+            return Ok(new { id, message = $"Товар с id:{id} уменьшино на 1" });
+        }
+
+        public IActionResult ClearAPI()
+        {
+            _CartServices.Clear();
+            return Ok();
+        }
+
+        public IActionResult OrderConfirmedAPI(int id)
+        {
+            ViewBag.OrderId = id;
+            return Ok();
+        }
+
+        #endregion
     }
 }
