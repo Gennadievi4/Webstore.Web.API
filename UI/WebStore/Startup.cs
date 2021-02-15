@@ -15,6 +15,7 @@ using WebStore.Domain.Identity;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestApi;
+using WebStore.Services.Products;
 using WebStore.Services.Products.InCookies;
 using WebStoreLogger;
 
@@ -55,7 +56,9 @@ namespace WebStore
             services.AddSingleton<IEmployeesData, EmployeesClient>();
             services
                 .AddScoped<IProductData, ProductsClient>()
-                .AddScoped<ICartServices, InCookiesCartService>()
+                //.AddScoped<ICartServices, InCookiesCartService>()
+                .AddScoped<ICartServices, CartService>()
+                .AddScoped<ICartStore, InCookiesCartStore>()
                 .AddScoped<IOrderService, OrdersClient>();
 
             services.ConfigureApplicationCookie(opt =>

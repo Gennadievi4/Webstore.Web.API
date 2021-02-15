@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace WebStore.Controllers
 {
@@ -8,5 +9,18 @@ namespace WebStore.Controllers
         {
             return View();
         }
+
+        public IActionResult Throw(string id) => throw new ApplicationException(id);
+
+        public IActionResult Error404()
+        {
+            return View();
+        }
+
+        public IActionResult ErrorStatus(string Code) => Code switch
+        {
+            "404" => RedirectToAction(nameof(Error404)),
+            _ => Content($"Error code {Code}")
+        };
     }
 }
