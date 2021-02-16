@@ -9,9 +9,9 @@ namespace WebStore.Controllers
 
         private readonly IProductData _ProductData;
 
-        public ProductDetailsController(IProductData product)
+        public ProductDetailsController(IProductData Product)
         {
-            _ProductData = product;
+            _ProductData = Product;
         }
 
         public IActionResult ProductDetailsIndex(int Id)

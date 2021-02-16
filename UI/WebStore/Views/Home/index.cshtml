@@ -3,6 +3,7 @@
 @{ 
     var products = ProductData
         .GetProducts()
+        .Products
         .OrderBy(x => x.Order)
         .Take(6)
         .Select(x => new ProductViewModel

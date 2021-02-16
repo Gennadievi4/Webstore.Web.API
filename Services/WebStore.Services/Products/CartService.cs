@@ -69,33 +69,33 @@ namespace WebStore.Services.Products
             _CartStore.Cart = cart;
         }
 
-        public CartViewModel TransformFromCart() =>
-        //{
-        //    var products = _ProductData.GetProducts(new ProductFilter
-        //    {
-        //        Ids = _CartStore.Cart.Items.Select(item => item.ProductId).ToArray()
-        //    });
-
-        //    var product_view_models = products.FromDTO().ToView();
-
-        //    return new CartViewModel
-        //    {
-        //        Items = _CartStore.Cart.Items.Join(product_view_models, 
-        //        Item => Item.ProductId,
-        //        product => product.Id,
-        //        (item, product) => (product, item.Quantity))
-        //    };
-        //}
-
-        new()
+        public CartViewModel TransformFromCart()
         {
-            Items = from item in _CartStore.Cart.Items
-                    join product in _ProductData.GetProducts(new ProductFilter
-                    {
-                        Ids = _CartStore.Cart.Items.Select(item => item.ProductId).ToArray()
-                    }).FromDTO().ToView()
-                        on item.ProductId equals product.Id
-                    select (product, item.Quantity)
-        };
+            var products = _ProductData.GetProducts(new ProductFilter
+            {
+                Ids = _CartStore.Cart.Items.Select(item => item.ProductId).ToArray()
+            });
+
+            var product_view_models = products.Products.FromDTO().ToView();
+
+            return new CartViewModel
+            {
+                Items = _CartStore.Cart.Items.Join(product_view_models,
+                Item => Item.ProductId,
+                product => product.Id,
+                (item, product) => (product, item.Quantity))
+            };
+        }
+
+        //new()
+        //{
+        //    Items = from item in _CartStore.Cart.Items
+        //            join product in _ProductData.GetProducts(new ProductFilter
+        //            {
+        //                Ids = _CartStore.Cart.Items.Select(item => item.ProductId).ToArray()
+        //            }).FromDTO().ToView()
+        //                on item.ProductId equals product.Id
+        //            select (product, item.Quantity)
+        //};
     }
 }
