@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebStore.Domain.ViewModels;
 
 namespace WebStore.TagHelpers
@@ -50,11 +49,19 @@ namespace WebStore.TagHelpers
             var a = new TagBuilder("a");
 
             if (PageNumber == PageModel.Page)
+            {
                 li.AddCssClass("active");
+                a.MergeAttribute("data-page", PageModel.Page.ToString());
+            }
             else
             {
                 PageUrlValues["page"] = PageNumber;
-                a.Attributes["href"] = Url.Action(PageAction, PageUrlValues);
+                a.Attributes["href"] = "#";
+                //a.Attributes["href"] = Url.Action(PageAction, PageUrlValues);
+                foreach (var (key, value) in PageUrlValues.Where(v => !string.IsNullOrEmpty(v.Value?.ToString())))
+                {
+                    a.MergeAttribute($"data-{key}", value.ToString());
+                }
             }
 
             a.InnerHtml.AppendHtml(PageNumber.ToString());

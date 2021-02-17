@@ -4,6 +4,8 @@
     ViewData["Title"] = "Каталог товаров";
 }
 
+
+
 <section id="advertisement">
     <div class="container">
         <img src="~/images/shop/advertisement.jpg" alt="" />
@@ -21,7 +23,9 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                <partial name="Partial/_FeaturesItems" model="@Model.Product"/>
+                <div id="catalog-items-container">
+                    <partial name="Partial/_FeaturesItems" model="@Model.Product" />
+                </div>
 
                 <paging page-model="Model.PageViewModel"
                         page-action="ShopIndex"
@@ -33,3 +37,16 @@
         </div>
     </div>
 </section>
+
+@section Scripts
+{ 
+    <script src="~/lib/jquery-loading-overlay/loadingoverlay.min.js"></script>
+    <script src="~/js/Catalog/CatalogLogic.js" asp-append-version="true"></script>
+    <script>
+        $(function(){
+            Catalog.init({
+                getViewLink: "@Url.Action("GetFeaturesItems", "Shop")"
+            });
+        })
+    </script>
+}

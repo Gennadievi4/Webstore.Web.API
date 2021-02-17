@@ -1,5 +1,5 @@
 ﻿@model EmployeesViewModel
-@{ 
+@{
     ViewData["Title"] = $"Редактирование сотрудника возраста:{Model.Age}";
 }
 
@@ -46,3 +46,8 @@
         </div>
     </form>
 </div>
+
+@section Scripts
+{
+    <partial name="Partial/_ValidationScriptsPartial" />
+}

@@ -1,6 +1,4 @@
-﻿import { Toast } from "bootstrap";
-
-Cart = {
+﻿Cart = {
     _properties: {
         getCartViewLink: "",
         addToCartLink: "",
