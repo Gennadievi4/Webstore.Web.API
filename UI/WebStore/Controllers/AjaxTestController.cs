@@ -29,5 +29,10 @@ namespace WebStore.Controllers
 
             return PartialView("Partial/_DataView", new AjaxTestDataViewModel(id, msg, DateTime.Now));
         }
+
+        public IActionResult SignalRTest()
+        {
+            return View();
+        }
     }
 }
