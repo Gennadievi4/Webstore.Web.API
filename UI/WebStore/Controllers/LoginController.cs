@@ -24,6 +24,13 @@ namespace WebStore.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<IActionResult> IsNameFree(string UserName)
+        {
+            var user = _UserManager.FindByNameAsync(UserName);
+            return Json(user is null ? "true" : "Пользователь с таким именем уже существует!");
+        }
+
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterViewModel());
 
         [HttpPost, ValidateAntiForgeryToken]

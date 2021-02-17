@@ -23,11 +23,14 @@ namespace WebStore.Clients.Products
 
         public ProductDTO GetProductById(int Id) => Get<ProductDTO>($"{Address}/{Id}");
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null) =>
-            Post(Address, Filter ?? new())
-            .Content
-            .ReadAsAsync<IEnumerable<ProductDTO>>()
-            .Result;
+        public PageProductsDTO GetProducts(ProductFilter Filter = null)
+        {
+            var response = Post(Address, Filter ?? new ProductFilter());
+            var result = response.Content
+                .ReadAsAsync<PageProductsDTO>()
+                .Result;
+            return result;
+        }
 
         public SectionDTO GetSectionById(int Id) => Get<SectionDTO>($"{Address}/sections/{Id}");
 

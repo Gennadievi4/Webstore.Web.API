@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Linq;
@@ -31,9 +32,13 @@ namespace WebStore.Tests.Controllers
             var product_data_mock = new Mock<IProductData>();
             product_data_mock
                 .Setup(x => x.GetProducts(It.IsAny<ProductFilter>()))
-                .Returns(products);
+                .Returns(new PageProductsDTO(products, products.Length));
 
-            var controller = new ShopController(product_data_mock.Object);
+            var configuration_mock = new Mock<IConfiguration>();
+            configuration_mock.Setup(configuration => configuration[It.IsAny<string>()])
+                .Returns("3");
+
+            var controller = new ShopController(product_data_mock.Object, configuration_mock.Object);
 
             var result = controller.ShopIndex(expected_brand_id, expected_section_id);
 

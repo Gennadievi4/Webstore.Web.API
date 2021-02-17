@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entitys;
 using WebStore.Domain.Identity;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Areas.Admin.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebStore.Areas.Admin.Controllers
         public CatalogController(IProductData ProductData) => this._ProductData = ProductData;
         public IActionResult Index()
         {
-            return View(_ProductData.GetProducts());
+            return View(_ProductData.GetProducts().Products.FromDTO());
         }
 
         public IActionResult Edit(int Id)
